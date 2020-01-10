@@ -1,25 +1,23 @@
 package com.digitalwindows;
 
-
-import com.digitalwindows.configuration.HibernateConfiguration;
 import com.digitalwindows.entities.Course;
 import com.digitalwindows.entities.Student;
 import org.hibernate.Session;
 
-public class MainEntityManager {
+public class MainWithoutCFG {
     public static void main(String[] args) {
-        try (Session session = HibernateConfiguration.getSessionFactory().openSession()){
+        try (Session session = HibernateUtil.getSessionFactory().openSession()){
             // #1
             System.out.println("------------------ #1 ------------------");
 
             session.beginTransaction();
-            Course course1 = new Course("Course-1");
-            Course course2 = new Course("Course-2");
-            Course course3 = new Course("Course-3");
-            Course[] courses = {course1, course2, course3};
+            Course course4 = new Course("Course-4");
+            Course course5 = new Course("Course-5");
+            Course course6 = new Course("Course-6");
+            Course[] courses = {course4, course5, course6};
 
             for (int i = 0; i < 15; i++) {
-                Student student = new Student("FirstName-" + i, "LastName"+i, "EMAIL:"+i+"@gmail.com");
+                Student student = new Student("FirstName-1" + i, "LastName1"+i, "EMAIL:1"+i+"@gmail.com");
                 Course course = courses[i % courses.length];
                 course.addStudent(student);
             }
@@ -30,7 +28,7 @@ public class MainEntityManager {
 
             session.getTransaction().commit();
         }  catch (Exception ex) {
-       ex.printStackTrace();
-    }
+            ex.printStackTrace();
+        }
     }
 }
